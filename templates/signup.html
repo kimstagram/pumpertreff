@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+
+{% block costum_styles %}
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="static/css/signin.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+    <main class="text-center container">
+        <form method = "POST" action = "/signup" class="form-signin">
+
+              <h1 class="h3 mb-3 font-weight-normal">Create an account</h1>
+
+              {{ form.hidden_tag() }}
+              {{ form.name.label( class = "sr-only") }}
+              {{ form.name( class="form-control", placeholder="Name", required = true, autofocus = true) }}
+              {{ form.email.label( class = "sr-only") }}
+              {{ form.email(type="email", class="form-control", placeholder="Email address", required = true)}}
+              {{ form.password.label(class = "sr-only") }}
+              {{ form.password(class="form-control", placeholder="Password", minlength="8", required = true) }}
+              {% if form.name.errors %}
+                {% for error in form.name.errors %}
+                    <p class="error-message text-danger">{{ error }}</p>
+                {% endfor %}
+              {% endif %}
+              {% if form.email.errors %}
+                {% for error in form.email.errors %}
+                    <p class="error-message text-danger">{{ error }}</p>
+                {% endfor %}
+              {% endif %}
+              {% if form.password.errors %}
+                {% for error in form.password.errors %}
+                    <p class="error-message text-danger">{{ error }}</p>
+                {% endfor %}
+              {% endif %}
+
+              {{ form.submit(class="btn btn-lg btn-primary btn-block") }}
+              <p class="mt-5 mb-3 text-muted">&copy; 2019</p>
+        </form>
+    </main>
+
+{% endblock %}
