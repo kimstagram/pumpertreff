@@ -1,13 +1,20 @@
 from flask import Flask, render_template, request, session, redirect, url_for
 from models import db, User
 from forms import SignupForm, LoginForm
+import os
 
-app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/pumpertreff'
-db.init_app(app)
+def create_app():
+    app = Flask(__name__)
+    app.secret_key = "development-key"
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 
-app.secret_key = "development-key"
+
+    db.init_app(app)
+    return app
+app = create_app()
+
+
 
 @app.route("/")
 def index():
